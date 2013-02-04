@@ -4,12 +4,10 @@ SERVICES = (
     # shortname, name, icon
     ('flickr', 'Flickr', 'img/services/flickr.png'),
     ('delicious', 'del.icio.us', 'img/services/delicious.png'),
-    ('magnolia', 'Ma.gnolia.com', 'img/services/magnolia.png'),
     ('twitter', 'Twitter', 'img/services/twitter.png'),
     ('facebook', 'Facebook', 'img/services/facebook.png'),
     ('googleplus', 'Google+', 'img/services/googleplus.png'),
     ('linkedin', 'LinkedIn', 'img/services/linkedin.png'),
-    ('pownce', 'Pownce', 'img/services/pownce.png'),
     ('djangosnippets', 'djangosnippets.org', 'img/services/django.png'),
     ('djangosites', 'DjangoSites.org', 'img/services/django.png'),
     ('bitbucket', 'Bitbucket', 'img/services/bitbucket.png'),
