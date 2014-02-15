@@ -30,6 +30,7 @@ module.exports = function(grunt) {
                 files: [
                     'Gruntfile.js',
                     'js/**/*.js',
+                    'vendor/**/*.js',
                 ],
                 tasks: ['concat'],
                 options: {
