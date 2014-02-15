@@ -89,15 +89,41 @@ var DJMap = L.Map.extend({
     /* Plots people on the maps and adds an info window to it
      * which becomes visible when you click the marker
      */
-    plotPeople: function (people) {
-        var bounds = new L.LatLngBounds(),
-            map = this;
+    plotPeople: function(people) {
+        if (people === 'all') {
+            var map = this;
+            $.ajax({
+                url: '/api/people/',
+                async: false,
+                dataType: 'json',
+                success: function(results) {
+                    map.plotPeople(results.people);
+                },
+            });
+        }
+        var bounds = new L.LatLngBounds();
+        var markers = L.markerClusterGroup({chunkedLoading: true});
+        var heatmap = L.TileLayer.heatMap({
+            radius: 20,
+            opacity: 0.6,
+            0.45: "rgb(0,0,255)",
+            0.55: "rgb(0,255,255)",
+            0.65: "rgb(0,255,0)",
+            0.95: "yellow",
+            1.0: "rgb(255,0,0)",
+        });
+        var data = [];
         $.each(people, function(index, person) {
             var marker = new DJMarker(person);
             bounds.extend(marker.getLatLng());
-            marker.addTo(map);
+            markers.addLayer(marker);
+            data.push({lat: person[0], lon: person[1], value: 1});
         });
+        heatmap.addData(data);
+        heatmap._createTileProto();
         this.fitBounds(bounds, {reset: true});
+        this.addLayer(markers);
+        this.addLayer(heatmap);
         return bounds;
     },
 

@@ -28,6 +28,7 @@ from .forms import (SkillsForm, SignupForm, PortfolioForm, BioForm,
                     LocationForm, FindingForm, AccountForm, PasswordForm,
                     DeletionRequestForm, AccountDeletionForm)
 from .models import DjangoPerson, Country, User, Region, PortfolioSite
+from .templatetags.gravatar import gravatar
 
 from ..django_openidauth.models import associate_openid, UserOpenID
 from ..machinetags.utils import tagdict
@@ -62,6 +63,7 @@ class IndexView(generic.TemplateView):
         people = people.order_by('-id')[:100]
         ctx = super(IndexView, self).get_context_data(**kwargs)
         ctx.update({
+            'all': True,
             'people_list': people,
             'people_list_limited': people[:4],
             'total_people': DjangoPerson.objects.count(),
@@ -764,4 +766,19 @@ def geonames(request):
     response = requests.get('http://ws.geonames.org/findNearbyPlaceNameJSON',
                             params=params)
     return HttpResponse(json.dumps(response.json()),
+                        content_type='application/json')
+
+
+def all_users(request):
+    users = DjangoPerson.objects.select_related('user', 'country').values_list(
+        'latitude', 'longitude', 'user__first_name', 'user__last_name',
+        'user__username', 'location_description', 'user__email',
+        'country__iso_code',
+    )
+    processed_users = []
+    for u in users:
+        processed_users.append(
+            u[:2] + (" ".join([u[2], u[3]]),) + u[4:6] + (gravatar(u[6]), u[7])
+        )
+    return HttpResponse(json.dumps({'people': processed_users}),
                         content_type='application/json')

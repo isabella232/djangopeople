@@ -11,12 +11,13 @@
 
 {% addtoblock "js" %}
 <script type="text/javascript">
+{% if all %}var people = 'all';{% else %}
 	var people = [
 		// latitude, longitude, name, username, location description
 		{% for person in people_list %}
 			[{{ person.latitude_str }}, {{ person.longitude_str }}, "{{ person|escapejs }}", "{{ person.user.username|escapejs }}", "{{ person.location_description|escapejs }}", "{% gravatar person.user.email 40 %}", "{{ person.country.iso_code|lower }}"]{% if not forloop.last %},{% endif %}
 		{% endfor %}
-	];
+	];{% endif %}
 </script>
 {% endaddtoblock %}
 

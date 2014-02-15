@@ -40,6 +40,7 @@ urlpatterns = patterns(
     url(r'^', include('password_reset.urls')),
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^geonames/$', views.geonames, name='geonames'),
+    url(r'^api/people/$', views.all_users, name='api_people'),
 
     url(r'^favicon.ico$', favicon),
     url(r'^robots.txt$', robots, name='robots'),
