@@ -1,4 +1,4 @@
-Django==1.6.11
+Django==1.7.11
 boto==2.25.0
 dj-database-url==0.2.2
 django-classy-tags==0.4
@@ -8,7 +8,7 @@ django-secure==1.0
 django-sekizai==0.7
 django-ses==0.4.1
 django-storages==1.1.8
-django-tagging==0.3.1
+django-tagging==0.3.3
 geopy==0.98
 gevent==1.0
 greenlet==0.4.2
