@@ -23,8 +23,6 @@ robots = lambda _: HttpResponse('User-agent: *\nDisallow:\n',
                                 content_type='text/plain')
 gone = lambda _: HttpResponseGone()
 
-admin.autodiscover()
-
 urlpatterns = patterns(
     '',
     url(r'^admin/', include(admin.site.urls), name='admin'),
