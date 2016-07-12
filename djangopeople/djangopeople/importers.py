@@ -1,12 +1,8 @@
 import os
+from xml.etree import cElementTree as ElementTree
 
 from django.conf import settings
 from django.contrib.localflavor.us.us_states import STATE_CHOICES
-
-try:
-    from xml.etree import cElementTree as ElementTree
-except ImportError:
-    from elementtree import ElementTree
 
 from .models import Country, Region
 

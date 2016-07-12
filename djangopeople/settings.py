@@ -187,6 +187,8 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL = os.environ['FROM_EMAIL']
 
 SESSION_SERIALIZER = 'djangopeople.serializers.JSONSerializer'
 
+SILENCED_SYSTEM_CHECKS = ['1_6.W001']
+
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else:

@@ -1,6 +1,6 @@
 from django import forms
 from django.conf import settings
-from django.contrib.sites.models import RequestSite
+from django.contrib.sites.requests import RequestSite
 from django.core import signing
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
