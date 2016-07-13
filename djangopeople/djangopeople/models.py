@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.fields import GenericRelation
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.html import escape
@@ -138,7 +138,7 @@ class DjangoPerson(models.Model):
     profile_views = models.IntegerField(_('Profile views'), default=0)
 
     # Machine tags
-    machinetags = generic.GenericRelation(MachineTaggedItem)
+    machinetags = GenericRelation(MachineTaggedItem)
     add_machinetag = add_machinetag
 
     # OpenID delegation
