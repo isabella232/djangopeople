@@ -1,8 +1,3 @@
-import datetime
-
-ORIGIN_DATE = datetime.date(2000, 1, 1)
-
-
 def simple_decorator(decorator):
     """This decorator can be used to turn simple functions
     into well-behaved decorators, so long as the decorators
