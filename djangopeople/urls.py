@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url, include
+from django.conf.urls import include, url
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -23,8 +23,7 @@ robots = lambda _: HttpResponse('User-agent: *\nDisallow:\n',
                                 content_type='text/plain')
 gone = lambda _: HttpResponseGone()
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^admin/', include(admin.site.urls), name='admin'),
     url(r'^$', views.index, name='index'),
     url(r'^login/$', 'django.contrib.auth.views.login',
@@ -75,7 +74,7 @@ urlpatterns = patterns(
     url(r'^irc/active/$', views.irc_active, name='irc_active'),
     url(r'^irc/(.*?)/$', api.irc_redirect, name='irc_redirect'),
 
-    (r'^uk/$', perm_redirect('/gb/')),
+    url(r'^uk/$', perm_redirect('/gb/')),
 
     url(r'^(?P<country_code>[a-z]{2})/$',
         views.country, name='country_detail'),
@@ -129,7 +128,7 @@ urlpatterns = patterns(
 
     url(r'^(?P<username>[a-z0-9]{3,})/delete/(?P<key>.+)/$',
         views.delete_account, name='delete_account'),
-)
+]
 
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
