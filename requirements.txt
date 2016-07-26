@@ -12,7 +12,7 @@ django-tagging==0.3.3
 envdir==0.7
 geopy==0.98
 gevent==1.1.2
-greenlet==0.4.2
+greenlet==0.4.10
 gunicorn==19.6
 psycopg2==2.6.2
 python-openid==2.2.5
