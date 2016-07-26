@@ -27,7 +27,7 @@ Check ``env/DATABASE_URL`` to configure a local DB.
 
 Then::
 
-    python manage.py syncdb --noinput && python manage.py fix_counts
+    python manage.py migrate --noinput && python manage.py fix_counts
     python manage.py runserver
 
 The development server is now running on http://localhost:8000.

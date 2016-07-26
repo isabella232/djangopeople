@@ -6,7 +6,7 @@ from ...models import Country, Region
 class Command(NoArgsCommand):
     """
     Countries and regions keep a denormalized count of people that gets out of
-    sync during syncdb.  This updates it.
+    sync during migrate.  This updates it.
     """
     def handle_noargs(self, **options):
         for qs in (Country.objects.all(), Region.objects.all()):
