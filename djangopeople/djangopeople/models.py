@@ -6,7 +6,7 @@ from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
-import tagging
+from tagging.registry import register
 
 from geopy import distance
 
@@ -233,8 +233,7 @@ class DjangoPerson(models.Model):
             namespace='privacy', predicate='irctrack', value='private',
         ).count()
 
-tagging.register(DjangoPerson, tag_descriptor_attr='skilltags',
-                 tagged_item_manager_attr='skilltagged')
+register(DjangoPerson, tag_descriptor_attr='skilltags', tagged_item_manager_attr='skilltagged')
 
 
 class PortfolioSite(models.Model):
