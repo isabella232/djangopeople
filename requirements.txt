@@ -10,7 +10,7 @@ django-ses==0.8
 django-storages==1.4.1
 django-tagging==0.4.1
 envdir==0.7
-geopy==0.98
+geopy==1.11.0
 gevent==1.1.2
 greenlet==0.4.10
 gunicorn==19.6
