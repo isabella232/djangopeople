@@ -94,11 +94,6 @@ MIDDLEWARE_CLASSES = (
     'djangopeople.djangopeople.middleware.NoDoubleSlashes',
 )
 
-if 'SENTRY_DSN' in os.environ:
-    MIDDLEWARE_CLASSES += (
-        'raven.contrib.django.middleware.Sentry404CatchMiddleware',
-    )
-
 ROOT_URLCONF = 'djangopeople.urls'
 
 TEMPLATE_DIRS = ()
@@ -136,46 +131,9 @@ INSTALLED_APPS = (
 
 if 'SENTRY_DSN' in os.environ:
     INSTALLED_APPS += (
-        'raven.contrib.django',
+        'raven.contrib.django.raven_compat',
     )
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'simple': {
-            'format': '%(asctime)s %(levelname)s: %(message)s'
-        },
-    },
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple'
-        },
-        'sentry': {
-            'level': 'DEBUG',
-            'class': 'raven.contrib.django.handlers.SentryHandler',
-        }
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['console'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-        'raven': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': False,
-        },
-        'sentry.errors': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': False,
-        },
-    },
-}
+    RAVEN_CONFIG = {'dsn': os.environ['SENTRY_DSN']}
 
 GEONAMES_USERNAME = os.environ.get('GEONAMES_USERNAME', 'brutasse')
 
