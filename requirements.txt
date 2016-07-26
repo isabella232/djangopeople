@@ -5,7 +5,7 @@ django-classy-tags==0.7.2
 django-password-reset==0.9
 django-redis-cache==1.6.5
 django-secure==1.0
-django-sekizai==0.7
+django-sekizai==0.9
 django-ses==0.8
 django-storages==1.1.8
 django-tagging==0.3.3
