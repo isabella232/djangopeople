@@ -1,7 +1,7 @@
 Django==1.7.11
 boto==2.25.0
 dj-database-url==0.4.1
-django-classy-tags==0.4
+django-classy-tags==0.7.2
 django-password-reset==0.9
 django-redis-cache==1.6.5
 django-secure==1.0
