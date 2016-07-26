@@ -2,7 +2,7 @@
 django-debug-toolbar==1.4
 flake8==2.1.0
 mccabe==0.2.1
-mock==1.0.1
+mock==2.0
 pep8==1.4.6
 pep8-naming==0.2.1
 pyflakes==0.7.3
