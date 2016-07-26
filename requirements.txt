@@ -6,7 +6,7 @@ django-password-reset==0.9
 django-redis-cache==0.10.2
 django-secure==1.0
 django-sekizai==0.7
-django-ses==0.4.1
+django-ses==0.8
 django-storages==1.1.8
 django-tagging==0.3.3
 envdir==0.7
