@@ -77,10 +77,8 @@ class AboutView(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         ctx = super(AboutView, self).get_context_data(**kwargs)
-        users = User.objects.filter(useropenid__openid__startswith='http')
         ctx.update({
             'total_people': DjangoPerson.objects.count(),
-            'openid_users': users.distinct().count(),
             'countries': Country.objects.top_countries(),
         })
         return ctx
