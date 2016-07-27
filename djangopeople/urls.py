@@ -2,11 +2,14 @@ from django.conf.urls import include, url
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.http import HttpResponse, HttpResponseGone
 from django.shortcuts import redirect
 from django.template.base import add_to_builtins
 
+from .django_openidauth import views as django_openidauth_views
+from .django_openidconsumer import views as django_openidconsumer_views
 from .djangopeople import views, api
 
 add_to_builtins('django.templatetags.i18n')
@@ -30,7 +33,7 @@ def gone(request):
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls), name='admin'),
     url(r'^$', views.index, name='index'),
-    url(r'^login/$', 'django.contrib.auth.views.login',
+    url(r'^login/$', auth_views.login,
         {'template_name': 'login.html'}, name='login'),
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^about/$', views.about, name='about'),
@@ -48,22 +51,19 @@ urlpatterns = [
 
     # openid stuff
     url(
-        r'^openid/$', 'djangopeople.django_openidconsumer.views.begin', {
+        r'^openid/$', django_openidconsumer_views.begin, {
             'sreg': 'email,nickname,fullname',
             'redirect_to': '/openid/complete/',
         }, name='openid_begin'),
     url(r'^openid/complete/$',
-        'djangopeople.django_openidconsumer.views.complete',
+        django_openidconsumer_views.complete,
         name='openid_complete'),
 
     url(r'^openid/whatnext/$', views.openid_whatnext, name='openid_whatnext'),
 
-    url(r'^openid/signout/$',
-        'djangopeople.django_openidconsumer.views.signout',
-        name='openid_signout'),
+    url(r'^openid/signout/$', django_openidconsumer_views.signout, name='openid_signout'),
 
-    url(r'^openid/associations/$',
-        'djangopeople.django_openidauth.views.associations',
+    url(r'^openid/associations/$', django_openidauth_views.associations,
         name='openid_associations'),
 
     url(r'^search/$', views.search, name='search'),
