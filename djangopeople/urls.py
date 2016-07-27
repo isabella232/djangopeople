@@ -19,9 +19,13 @@ favicon = perm_redirect(
     '%sdjangopeople/img/favicon.ico' % settings.STATIC_URL
 )
 
-robots = lambda _: HttpResponse('User-agent: *\nDisallow:\n',
-                                content_type='text/plain')
-gone = lambda _: HttpResponseGone()
+
+def robots(request):
+    return HttpResponse('User-agent: *\nDisallow:\n', content_type='text/plain')
+
+
+def gone(request):
+    return HttpResponseGone()
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls), name='admin'),
@@ -42,7 +46,7 @@ urlpatterns = [
     url(r'^static/profiles/_thumbs/.*', gone, name='gone'),
     url(r'^static/img/.*', gone),
 
-    #openid stuff
+    # openid stuff
     url(
         r'^openid/$', 'djangopeople.django_openidconsumer.views.begin', {
             'sreg': 'email,nickname,fullname',

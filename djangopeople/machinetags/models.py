@@ -1,3 +1,5 @@
+import re
+
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -23,7 +25,6 @@ class MachineTaggedItem(models.Model):
             value = '"%s"' % value.replace('"', r'\"')
         return u'%s:%s=%s' % (self.namespace, self.predicate, value)
 
-import re
 _part_re = re.compile('^[a-z][a-z0-9_]*$')
 _machinetag_re = re.compile('^([a-z][a-z0-9_]*):([a-z][a-z0-9_]*)=(.*)$')
 

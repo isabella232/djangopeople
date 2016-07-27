@@ -34,7 +34,10 @@ USE_TZ = True
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
-gettext = lambda s: s
+
+def gettext(s):
+    return s
+
 LANGUAGES = (
     ('en', gettext('English')),
     ('cs', gettext('Czech')),

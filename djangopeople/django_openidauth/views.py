@@ -99,10 +99,7 @@ def associations(request, template_name='openid_associations.html'):
             openid = del_hashes[key]
             if openid in associated_openids:
                 # if user has no password and this is last one, don't allow
-                if (
-                    not request.user.has_usable_password()
-                    and len(associated_openids) < 2
-                ):
+                if not request.user.has_usable_password() and len(associated_openids) < 2:
                     messages.append(_(
                         'You need to set a password if you want to remove all '
                         'of your OpenIDs'
@@ -119,18 +116,18 @@ def associations(request, template_name='openid_associations.html'):
     # logged in BUT are not associated - these are the ones that should be
     # displayed with an "associate this?" buttons.
     potential_openids = [
-        str(openid) for openid in request.openids
-        if str(openid) not in associated_openids
+        str(openid_) for openid_ in request.openids
+        if str(openid_) not in associated_openids
     ]
 
     # Finally, calculate the button hashes we are going to need for the form.
     add_buttons = [
-        {'openid': openid, 'hash': _make_hash('add', request.user, openid)}
-        for openid in potential_openids
+        {'openid': openid_, 'hash': _make_hash('add', request.user, openid_)}
+        for openid_ in potential_openids
     ]
     del_buttons = [
-        {'openid': openid, 'hash': _make_hash('del', request.user, openid)}
-        for openid in associated_openids
+        {'openid': openid_, 'hash': _make_hash('del', request.user, openid_)}
+        for openid_ in associated_openids
     ]
 
     return render(request, template_name, {
@@ -179,13 +176,11 @@ def complete(request, on_login_ok=None, on_login_failed=None,
 
     """
     if not on_login_ok:
-        on_login_ok = lambda request, identity_url: HttpResponseRedirect(
-            on_login_ok_url or '/?loggedin=True'
-        )
+        def on_login_ok(request, identity_url):
+            return HttpResponseRedirect(on_login_ok_url or '/?loggedin=True')
     if not on_login_failed:
-        on_login_failed = lambda request, identity_url: HttpResponseRedirect(
-            on_login_failed_url or '/?loggedin=False'
-        )
+        def on_login_failed(request, identity_url):
+            return HttpResponseRedirect(on_login_failed_url or '/?loggedin=False')
 
     def custom_on_success(request, identity_url, openid_response):
         # Reuse django_openidconsumer.views.default_on_success to set the
