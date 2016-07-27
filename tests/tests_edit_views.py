@@ -364,8 +364,8 @@ class EditViewTest(TestCase):
         self.assertRedirects(response, url_profile)
 
         p = DjangoPerson.objects.get(user__username='daveb')
-        self.assertEqual(p.openid_server, 'http://example.com/')
-        self.assertEqual(p.openid_delegate, 'http://google.com/')
+        self.assertEqual(p.openid_server, 'http://example.com')
+        self.assertEqual(p.openid_delegate, 'http://google.com')
 
         # test display openid change form (with initial data)
         response = self.client.get(url_edit_account)
@@ -375,7 +375,7 @@ class EditViewTest(TestCase):
             )[1].split('</div>')[0],
             (
                 '<input id="id_openid_server" type="url" '
-                'name="openid_server" value="http://example.com/" '
+                'name="openid_server" value="http://example.com" '
                 'maxlength="255" />')
         )
         self.assertHTMLEqual(
@@ -385,7 +385,7 @@ class EditViewTest(TestCase):
             (
                 '<input id="id_openid_delegate" '
                 'type="url" name="openid_delegate" '
-                'value="http://google.com/" '
+                'value="http://google.com" '
                 'maxlength="255" />'
             )
         )
@@ -396,8 +396,8 @@ class EditViewTest(TestCase):
                                      'openid_delegate': 'http://yahoo.com'})
 
         p = DjangoPerson.objects.get(user__username='daveb')
-        self.assertEqual(p.openid_server, 'http://test.com/')
-        self.assertEqual(p.openid_delegate, 'http://yahoo.com/')
+        self.assertEqual(p.openid_server, 'http://test.com')
+        self.assertEqual(p.openid_delegate, 'http://yahoo.com')
 
     def test_edit_account_form_error(self):
         '''
@@ -439,7 +439,7 @@ class EditViewTest(TestCase):
         self.assertNotContains(response, '<li><a href="http://example.org/" '
                                          'class="url" rel="nofollow"><cite>'
                                          'cheese-shop</cite></a></li>')
-        self.assertContains(response, '<li><a href="http://cs.org/" class="url'
+        self.assertContains(response, '<li><a href="http://cs.org" class="url'
                                       '" rel="nofollow"><cite>chocolate shop'
                                       '</cite></a></li>')
 
@@ -469,7 +469,7 @@ class EditViewTest(TestCase):
                                     follow=True)
         self.assertRedirects(response, url_profile)
         self.assertNotContains(response, 'Add some sites')
-        self.assertContains(response, '<li><a href="http://cs.org/" class="url'
+        self.assertContains(response, '<li><a href="http://cs.org" class="url'
                                       '" rel="nofollow"><cite>chocolate shop'
                                       '</cite></a></li>')
 

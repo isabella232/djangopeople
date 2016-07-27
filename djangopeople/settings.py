@@ -7,7 +7,6 @@ from django.utils.six.moves.urllib import parse
 OUR_ROOT = os.path.realpath(os.path.dirname(__file__))
 
 DEBUG = bool(os.environ.get('DEBUG', False))
-TEMPLATE_DEBUG = DEBUG
 
 # OpenID settings
 OPENID_REDIRECT_NEXT = reverse_lazy('openid_whatnext')
@@ -70,13 +69,27 @@ STATIC_URL = '/static/'
 # Password used by the IRC bot for the API
 API_PASSWORD = os.environ['API_PASSWORD']
 
-if DEBUG:
-    TEMPLATE_LOADERS = (
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-    )
-else:
-    TEMPLATE_LOADERS = (
+TEMPLATES = [{
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'APP_DIRS': True,
+    'OPTIONS': {
+        'context_processors': [
+            'django.contrib.auth.context_processors.auth',
+            'django.template.context_processors.debug',
+            'django.template.context_processors.i18n',
+            'django.template.context_processors.media',
+            'django.template.context_processors.static',
+            'django.template.context_processors.tz',
+            'django.contrib.messages.context_processors.messages',
+            'sekizai.context_processors.sekizai',
+        ],
+    },
+}]
+
+if not DEBUG:
+    # Use the cached template loader.
+    del TEMPLATES[0]['APP_DIRS']
+    TEMPLATES[0]['OPTIONS']['loaders'] = (
         ('django.template.loaders.cached.Loader', (
             'django.template.loaders.filesystem.Loader',
             'django.template.loaders.app_directories.Loader',
@@ -99,19 +112,6 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'djangopeople.urls'
-
-TEMPLATE_DIRS = ()
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.static",
-    "django.core.context_processors.tz",
-    "django.contrib.messages.context_processors.messages",
-    "sekizai.context_processors.sekizai",
-)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -148,8 +148,6 @@ if 'CANONICAL_HOSTNAME' in os.environ:
 SERVER_EMAIL = DEFAULT_FROM_EMAIL = os.environ['FROM_EMAIL']
 
 SESSION_SERIALIZER = 'djangopeople.serializers.JSONSerializer'
-
-SILENCED_SYSTEM_CHECKS = ['1_6.W001']
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
