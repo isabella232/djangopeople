@@ -95,6 +95,7 @@ MIDDLEWARE_CLASSES = (
     'djangopeople.django_openidconsumer.middleware.OpenIDMiddleware',
     'django.contrib.admindocs.middleware.XViewMiddleware',
     'djangopeople.djangopeople.middleware.NoDoubleSlashes',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
 )
 
 ROOT_URLCONF = 'djangopeople.urls'
