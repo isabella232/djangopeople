@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('predicate', models.CharField(max_length=50, db_index=True)),
                 ('value', models.CharField(max_length=255, db_index=True)),
                 ('object_id', models.PositiveIntegerField()),
-                ('content_type', models.ForeignKey(to='contenttypes.ContentType')),
+                ('content_type', models.ForeignKey(to='contenttypes.ContentType', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ('namespace', 'predicate', 'value'),

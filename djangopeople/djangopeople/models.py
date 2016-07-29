@@ -85,7 +85,7 @@ class Country(models.Model):
 class Region(models.Model):
     code = models.CharField(_('Code'), max_length=20)
     name = models.CharField(_('Name'), max_length=50)
-    country = models.ForeignKey(Country, verbose_name=_('Country'))
+    country = models.ForeignKey(Country, models.CASCADE, verbose_name=_('Country'))
     flag = models.CharField(_('Flag'), max_length=100, blank=True)
     bbox_west = models.FloatField()
     bbox_north = models.FloatField()
@@ -120,13 +120,18 @@ class Region(models.Model):
 
 
 class DjangoPerson(models.Model):
-    user = models.OneToOneField(User, verbose_name=_('User'))
+    user = models.OneToOneField(User, models.CASCADE, verbose_name=_('User'))
     bio = models.TextField(_('Bio'), blank=True)
 
     # Location stuff - all location fields are required
-    country = models.ForeignKey(Country, verbose_name=_('Country'))
-    region = models.ForeignKey(Region, verbose_name=_('Region'), blank=True,
-                               null=True)
+    country = models.ForeignKey(Country, models.CASCADE, verbose_name=_('Country'))
+    region = models.ForeignKey(
+        Region,
+        models.CASCADE,
+        verbose_name=_('Region'),
+        blank=True,
+        null=True,
+    )
     latitude = models.FloatField(_('Latitude'))
     longitude = models.FloatField(_('Longitude'))
     location_description = models.CharField(_('Location'), max_length=50)
@@ -239,8 +244,7 @@ register(DjangoPerson, tag_descriptor_attr='skilltags', tagged_item_manager_attr
 class PortfolioSite(models.Model):
     title = models.CharField(_('Title'), max_length=100)
     url = models.URLField(_('URL'), max_length=255)
-    contributor = models.ForeignKey(DjangoPerson,
-                                    verbose_name=_('Contributor'))
+    contributor = models.ForeignKey(DjangoPerson, models.CASCADE, verbose_name=_('Contributor'))
 
     def __unicode__(self):
         return u'%s <%s>' % (self.title, self.url)
@@ -254,7 +258,7 @@ class CountrySite(models.Model):
     "Community sites for various countries"
     title = models.CharField(_('Title'), max_length=100)
     url = models.URLField(_('URL'), max_length=255)
-    country = models.ForeignKey(Country, verbose_name=_('Country'))
+    country = models.ForeignKey(Country, models.CASCADE, verbose_name=_('Country'))
 
     def __unicode__(self):
         return u'%s <%s>' % (self.title, self.url)

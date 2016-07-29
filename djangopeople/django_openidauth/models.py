@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class UserOpenID(models.Model):
-    user = models.ForeignKey(User, verbose_name=_('User'))
+    user = models.ForeignKey(User, models.CASCADE, verbose_name=_('User'))
     openid = models.CharField(_('OpenID'), max_length=255, unique=True)
     created_at = models.DateTimeField(_('Creation date'))
 

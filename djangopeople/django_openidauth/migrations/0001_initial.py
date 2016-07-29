@@ -18,7 +18,9 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('openid', models.CharField(unique=True, max_length=255, verbose_name='OpenID')),
                 ('created_at', models.DateTimeField(verbose_name='Creation date')),
-                ('user', models.ForeignKey(verbose_name='User', to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(
+                    verbose_name='User', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+                )),
             ],
             options={
                 'ordering': ('-created_at',),

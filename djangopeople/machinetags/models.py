@@ -11,7 +11,7 @@ class MachineTaggedItem(models.Model):
     predicate = models.CharField(max_length=50, db_index=True)
     value = models.CharField(max_length=255, db_index=True)
 
-    content_type = models.ForeignKey(ContentType)
+    content_type = models.ForeignKey(ContentType, models.CASCADE)
     object_id = models.PositiveIntegerField()
 
     content_object = GenericForeignKey()

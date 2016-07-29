@@ -47,7 +47,9 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(max_length=100, verbose_name='Title')),
                 ('url', models.URLField(max_length=255, verbose_name='URL')),
-                ('country', models.ForeignKey(verbose_name='Country', to='djangopeople.Country')),
+                ('country', models.ForeignKey(
+                    verbose_name='Country', to='djangopeople.Country', on_delete=models.CASCADE,
+                )),
             ],
             options={
                 'verbose_name': 'Country site',
@@ -68,7 +70,9 @@ class Migration(migrations.Migration):
                 ('openid_server', models.URLField(max_length=255, verbose_name='OpenID server', blank=True)),
                 ('openid_delegate', models.URLField(max_length=255, verbose_name='OpenID delegate', blank=True)),
                 ('last_active_on_irc', models.DateTimeField(null=True, verbose_name='Last active on IRC', blank=True)),
-                ('country', models.ForeignKey(verbose_name='Country', to='djangopeople.Country')),
+                ('country', models.ForeignKey(
+                    verbose_name='Country', to='djangopeople.Country', on_delete=models.CASCADE,
+                )),
             ],
             options={
                 'verbose_name': 'Django person',
@@ -82,7 +86,9 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(max_length=100, verbose_name='Title')),
                 ('url', models.URLField(max_length=255, verbose_name='URL')),
-                ('contributor', models.ForeignKey(verbose_name='Contributor', to='djangopeople.DjangoPerson')),
+                ('contributor', models.ForeignKey(
+                    verbose_name='Contributor', to='djangopeople.DjangoPerson', on_delete=models.CASCADE,
+                )),
             ],
             options={
                 'verbose_name': 'Portfolio site',
@@ -102,7 +108,9 @@ class Migration(migrations.Migration):
                 ('bbox_east', models.FloatField()),
                 ('bbox_south', models.FloatField()),
                 ('num_people', models.IntegerField(default=0, verbose_name='Number of people')),
-                ('country', models.ForeignKey(verbose_name='Country', to='djangopeople.Country')),
+                ('country', models.ForeignKey(
+                    verbose_name='Country', to='djangopeople.Country', on_delete=models.CASCADE,
+                )),
             ],
             options={
                 'ordering': ('name',),
@@ -114,13 +122,18 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='djangoperson',
             name='region',
-            field=models.ForeignKey(verbose_name='Region', blank=True, to='djangopeople.Region', null=True),
+            field=models.ForeignKey(
+                verbose_name='Region', blank=True, to='djangopeople.Region',
+                null=True, on_delete=models.CASCADE,
+            ),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='djangoperson',
             name='user',
-            field=models.OneToOneField(verbose_name='User', to=settings.AUTH_USER_MODEL),
+            field=models.OneToOneField(
+                verbose_name='User', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+            ),
             preserve_default=True,
         ),
     ]
