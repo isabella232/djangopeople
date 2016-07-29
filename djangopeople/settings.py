@@ -97,6 +97,7 @@ if not DEBUG:
     )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.security.SecurityMiddleware',
     'djangopeople.djangopeople.middleware.CanonicalDomainMiddleware',
     'django.middleware.common.CommonMiddleware',
     'djangopeople.djangopeople.middleware.RemoveWWW',
@@ -121,7 +122,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.humanize',
     'django.contrib.staticfiles',
-    'djangosecure',
     'tagging',
 
     'djangopeople.django_openidconsumer',
@@ -161,9 +161,6 @@ else:
     STATIC_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 
     # Run the site over SSL
-    MIDDLEWARE_CLASSES = (
-        'djangosecure.middleware.SecurityMiddleware',
-    ) + MIDDLEWARE_CLASSES
     SESSION_COOKIE_SECURE = True
     SESSION_COOKIE_HTTPONLY = True
     CSRF_COOKIE_SECURE = True
@@ -171,7 +168,6 @@ else:
     SECURE_SSL_REDIRECT = True
     SECURE_HSTS_SECONDS = 2592000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_FRAME_DENY = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
