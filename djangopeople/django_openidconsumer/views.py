@@ -10,7 +10,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.utils.encoding import smart_unicode
+from django.utils.encoding import force_text
 from django.utils.html import escape
 from django.utils.translation import ugettext as _
 
@@ -111,7 +111,7 @@ def complete(request, on_success=None, on_failure=None, return_to=None):
     consumer = Consumer(request.session, DjangoOpenIDStore())
     # JanRain library raises a warning if passed unicode objects as the keys,
     # so we convert to bytestrings before passing to the library
-    query_dict = dict((k, smart_unicode(v)) for k, v in request.GET.items())
+    query_dict = dict((k, force_text(v)) for k, v in request.GET.items())
     openid_response = consumer.complete(query_dict, return_to)
 
     if openid_response.status == SUCCESS:
