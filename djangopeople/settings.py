@@ -98,6 +98,7 @@ if not DEBUG:
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'djangopeople.djangopeople.middleware.CanonicalDomainMiddleware',
     'django.middleware.common.CommonMiddleware',
     'djangopeople.djangopeople.middleware.RemoveWWW',
@@ -148,6 +149,7 @@ if 'CANONICAL_HOSTNAME' in os.environ:
 SERVER_EMAIL = DEFAULT_FROM_EMAIL = os.environ['FROM_EMAIL']
 
 SESSION_SERIALIZER = 'djangopeople.serializers.JSONSerializer'
+X_FRAME_OPTIONS = 'DENY'
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
