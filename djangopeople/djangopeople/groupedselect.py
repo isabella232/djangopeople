@@ -39,20 +39,20 @@ class GroupedSelect(forms.Select):
         for group_label, group in self.choices:
             if group_label:  # should belong to an optgroup
                 group_label = force_text(group_label)
-                output.append(u'<optgroup label="%s">' % escape(group_label))
+                output.append('<optgroup label="%s">' % escape(group_label))
             for k, v in group:
                 option_value = force_text(k)
                 option_label = force_text(v)
                 selected_html = ((option_value == str_value) and
-                                 u' selected="selected"' or '')
-                output.append(u'<option value="%s"%s>%s</option>' % (
+                                 ' selected="selected"' or '')
+                output.append('<option value="%s"%s>%s</option>' % (
                     escape(option_value), selected_html,
                     escape(option_label)
                 ))
             if group_label:
-                output.append(u'</optgroup>')
-        output.append(u'</select>')
-        return mark_safe(u'\n'.join(output))
+                output.append('</optgroup>')
+        output.append('</select>')
+        return mark_safe('\n'.join(output))
 
 
 # field for grouped choices, handles cleaning of funky choice tuple
@@ -69,16 +69,16 @@ class GroupedChoiceField(forms.ChoiceField):
         """
         value = super(forms.ChoiceField, self).clean(value)
         if value in (None, ''):
-            value = u''
+            value = ''
         value = force_text(value)
-        if value == u'':
+        if value == '':
             return value
         valid_values = []
         for group_label, group in self.choices:
             valid_values += [str(k) for k, v in group]
         if value not in valid_values:
             raise forms.ValidationError(
-                _(u'Select a valid choice. That choice is not one of the '
+                _('Select a valid choice. That choice is not one of the '
                   'available choices.')
             )
         return value

@@ -31,7 +31,7 @@ def import_countries(fp):
         ('bBoxEast', 'bbox_east', float),
         ('bBoxSouth', 'bbox_south', float),
     )
-    mapping = [(tup + (unicode,))[:3] for tup in mapping]
+    mapping = [(tup + (str,))[:3] for tup in mapping]
 
     for country in et.findall('country'):
         creation_args = {}

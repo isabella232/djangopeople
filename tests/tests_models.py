@@ -9,12 +9,12 @@ class DjangoPeopleUnitTest(TestCase):
 
     def test_region(self):
         ak = Region.objects.get(pk=36)
-        self.assertEqual(ak.__unicode__(), u'Alaska')
+        self.assertEqual(str(ak), 'Alaska')
         self.assertEqual(ak.get_absolute_url(), '/us/ak/')
 
     def test_country(self):
         us = Country.objects.get(pk=219)
-        self.assertEqual(us.__unicode__(), u'United States')
+        self.assertEqual(str(us), 'United States')
         hawaii = Region.objects.get(pk=32)
         self.assertTrue(hawaii in us.top_regions())
         self.assertTrue(us in Country.objects.top_countries())
@@ -24,22 +24,16 @@ class DjangoPeopleUnitTest(TestCase):
 
     def test_portfolio_site(self):
         p = PortfolioSite.objects.get(pk=1)
-        self.assertEqual(
-            p.__unicode__(),
-            u'cheese-shop <http://example.org/>')
+        self.assertEqual(str(p), 'cheese-shop <http://example.org/>')
 
     def test_country_site(self):
         cs = CountrySite.objects.get(pk=1)
-        self.assertEqual(
-            cs.__unicode__(),
-            u'django AT <http://example.org/>')
+        self.assertEqual(str(cs), 'django AT <http://example.org/>')
 
     def test_django_person(self):
         dave = DjangoPerson.objects.get(pk=1)
         louis = DjangoPerson.objects.get(pk=2)
-        self.assertEqual(
-            dave.__unicode__(),
-            u'Dave Brubeck')
+        self.assertEqual(str(dave), 'Dave Brubeck')
         self.assertEqual(dave.irc_nick(), 'davieboy')
         self.assertEqual(louis.irc_nick(), '<none>')
         self.assertTrue(dave.irc_tracking_allowed())

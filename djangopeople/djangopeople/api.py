@@ -25,8 +25,7 @@ def irc_lookup(request, irc_nick):
                          RequestSite(request).domain,
                          reverse('user_profile', args=[person.user.username]))
     return HttpResponse(
-        u'%s, %s, %s, %s' % (person, person.location_description,
-                             person.country, url),
+        '%s, %s, %s, %s' % (person, person.location_description, person.country, url),
         content_type='text/plain',
     )
 

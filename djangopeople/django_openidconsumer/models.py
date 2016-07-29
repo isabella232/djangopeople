@@ -5,8 +5,8 @@ class Nonce(models.Model):
     nonce = models.CharField(max_length=8)
     expires = models.IntegerField()
 
-    def __unicode__(self):
-        return u"Nonce: %s" % self.nonce
+    def __str__(self):
+        return "Nonce: %s" % self.nonce
 
 
 class NewNonce(models.Model):
@@ -14,8 +14,8 @@ class NewNonce(models.Model):
     timestamp = models.IntegerField()
     salt = models.CharField(max_length=40)
 
-    def __unicode__(self):
-        return u'Nonce: %s' % self.pk
+    def __str__(self):
+        return 'Nonce: %s' % self.pk
 
 
 class Association(models.Model):
@@ -26,5 +26,5 @@ class Association(models.Model):
     lifetime = models.IntegerField()
     assoc_type = models.TextField(max_length=64)
 
-    def __unicode__(self):
-        return u"Association: %s, %s" % (self.server_url, self.handle)
+    def __str__(self):
+        return "Association: %s, %s" % (self.server_url, self.handle)

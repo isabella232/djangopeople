@@ -17,7 +17,7 @@ Hacking
 
     git clone git@github.com:brutasse/djangopeople.git
     cd djangopeople
-    mkvirtualenv -p python2 djangopeople
+    mkvirtualenv -p python3.5 djangopeople
     pip install -r requirements.txt
     add2virtualenv .
     npm install

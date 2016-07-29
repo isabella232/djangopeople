@@ -19,11 +19,11 @@ class MachineTaggedItem(models.Model):
     class Meta:
         ordering = ('namespace', 'predicate', 'value')
 
-    def __unicode__(self):
+    def __str__(self):
         value = self.value
         if ' ' in value or '"' in value:
             value = '"%s"' % value.replace('"', r'\"')
-        return u'%s:%s=%s' % (self.namespace, self.predicate, value)
+        return '%s:%s=%s' % (self.namespace, self.predicate, value)
 
 _part_re = re.compile('^[a-z][a-z0-9_]*$')
 _machinetag_re = re.compile('^([a-z][a-z0-9_]*):([a-z][a-z0-9_]*)=(.*)$')

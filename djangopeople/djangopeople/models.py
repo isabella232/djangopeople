@@ -74,8 +74,8 @@ class Country(models.Model):
         verbose_name = _('Country')
         verbose_name_plural = _('Countries')
 
-    def __unicode__(self):
-        return u'%s' % self.name
+    def __str__(self):
+        return '%s' % self.name
 
     @property
     def flag_url(self):
@@ -99,8 +99,8 @@ class Region(models.Model):
         return reverse('country_region', args=[self.country.iso_code.lower(),
                                                self.code.lower()])
 
-    def __unicode__(self):
-        return u'%s' % self.name
+    def __str__(self):
+        return '%s' % self.name
 
     class Meta:
         ordering = ('name',)
@@ -212,8 +212,8 @@ class DjangoPerson(models.Model):
         else:
             return self.location_description
 
-    def __unicode__(self):
-        return u'%s' % self.user.get_full_name()
+    def __str__(self):
+        return '%s' % self.user.get_full_name()
 
     def get_absolute_url(self):
         return reverse('user_profile', args=[self.user.username])
@@ -246,8 +246,8 @@ class PortfolioSite(models.Model):
     url = models.URLField(_('URL'), max_length=255)
     contributor = models.ForeignKey(DjangoPerson, models.CASCADE, verbose_name=_('Contributor'))
 
-    def __unicode__(self):
-        return u'%s <%s>' % (self.title, self.url)
+    def __str__(self):
+        return '%s <%s>' % (self.title, self.url)
 
     class Meta:
         verbose_name = _('Portfolio site')
@@ -260,8 +260,8 @@ class CountrySite(models.Model):
     url = models.URLField(_('URL'), max_length=255)
     country = models.ForeignKey(Country, models.CASCADE, verbose_name=_('Country'))
 
-    def __unicode__(self):
-        return u'%s <%s>' % (self.title, self.url)
+    def __str__(self):
+        return '%s <%s>' % (self.title, self.url)
 
     class Meta:
         verbose_name = _('Country site')

@@ -2,6 +2,7 @@ import base64
 import hashlib
 import operator
 import time
+from functools import reduce
 
 import openid.store
 

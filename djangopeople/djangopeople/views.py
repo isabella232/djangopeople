@@ -1,4 +1,5 @@
 import datetime
+import functools
 import json
 import operator
 import re
@@ -674,7 +675,7 @@ class SearchView(generic.ListView):
                 Q(user__last_name__icontains=word)
             )
 
-        combined = reduce(operator.and_, terms)
+        combined = functools.reduce(operator.and_, terms)
         return DjangoPerson.objects.filter(
             combined,
         ).select_related().distinct()

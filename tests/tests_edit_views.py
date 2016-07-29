@@ -21,10 +21,8 @@ class EditViewTest(TestCase):
         super(EditViewTest, self).setUp()
         self.client.login(username='daveb', password='123456')
 
-        img_content = open(os.path.join(settings.OUR_ROOT,
-                                        'djangopeople/fixtures/pony.gif'),
-                           'rb').read()
-        sha1sum = hashlib.sha1(img_content).hexdigest()
+        with open(os.path.join(settings.OUR_ROOT, 'djangopeople/fixtures/pony.gif'), 'rb') as f:
+            sha1sum = hashlib.sha1(f.read()).hexdigest()
         self.hashed_upload_img_file_name = os.path.join(sha1sum[:1],
                                                         sha1sum[1:2], sha1sum)
 
@@ -354,8 +352,8 @@ class EditViewTest(TestCase):
         url_edit_account = reverse('edit_account', args=['daveb'])
 
         p = DjangoPerson.objects.get(user__username='daveb')
-        self.assertEqual(p.openid_server, u'')
-        self.assertEqual(p.openid_delegate, u'')
+        self.assertEqual(p.openid_server, '')
+        self.assertEqual(p.openid_delegate, '')
 
         response = self.client.post(url_edit_account,
                                     {'openid_server': 'http://example.com',
@@ -370,7 +368,7 @@ class EditViewTest(TestCase):
         # test display openid change form (with initial data)
         response = self.client.get(url_edit_account)
         self.assertHTMLEqual(
-            response.content.split(
+            response.content.decode('utf8').split(
                 '<label for="id_openid_server">OpenID server:</label>'
             )[1].split('</div>')[0],
             (
@@ -379,7 +377,7 @@ class EditViewTest(TestCase):
                 'maxlength="255" />')
         )
         self.assertHTMLEqual(
-            response.content.split(
+            response.content.decode('utf8').split(
                 '<label for="id_openid_delegate">OpenID delegate:</label>'
             )[1].split('</div>')[0],
             (
@@ -404,8 +402,8 @@ class EditViewTest(TestCase):
         check AccountForm error messages
         '''
         p = DjangoPerson.objects.get(user__username='daveb')
-        self.assertEqual(p.openid_server, u'')
-        self.assertEqual(p.openid_delegate, u'')
+        self.assertEqual(p.openid_server, '')
+        self.assertEqual(p.openid_delegate, '')
 
         url_edit_account = reverse('edit_account', args=['daveb'])
         response = self.client.post(url_edit_account,
@@ -420,8 +418,8 @@ class EditViewTest(TestCase):
                              'Enter a valid URL.')
 
         p = DjangoPerson.objects.get(user__username='daveb')
-        self.assertEqual(p.openid_server, u'')
-        self.assertEqual(p.openid_delegate, u'')
+        self.assertEqual(p.openid_server, '')
+        self.assertEqual(p.openid_delegate, '')
 
     def test_change_portfolio_entry(self):
         url_profile = reverse('user_profile', args=['daveb'])
@@ -478,7 +476,7 @@ class EditViewTest(TestCase):
         url_edit_portfolio = reverse('edit_portfolio', args=['daveb'])
         response = self.client.get(url_edit_portfolio)
         self.assertHTMLEqual(
-            response.content.split(
+            response.content.decode('utf8').split(
                 '<label for="id_title_1">Title 1:</label>'
             )[1].split('</div>')[0],
             (
@@ -488,7 +486,7 @@ class EditViewTest(TestCase):
             )
         )
         self.assertHTMLEqual(
-            response.content.split(
+            response.content.decode('utf8').split(
                 '<label for="id_url_1">URL 1:</label>'
             )[1].split('</div>')[0],
             (
@@ -498,7 +496,7 @@ class EditViewTest(TestCase):
             )
         )
         self.assertHTMLEqual(
-            response.content.split(
+            response.content.decode('utf8').split(
                 '<label for="id_title_2">Title 2:</label>'
             )[1].split('</div>')[0],
             (
@@ -507,7 +505,7 @@ class EditViewTest(TestCase):
             )
         )
         self.assertHTMLEqual(
-            response.content.split(
+            response.content.decode('utf8').split(
                 '<label for="id_url_2">URL 2:</label>'
             )[1].split('</div>')[0],
             (
@@ -918,7 +916,7 @@ class EditViewTest(TestCase):
         response = self.client.get(url)
         self.assertContains(response, 'Account deletion')
 
-        target = response.content.split('action="')[1].split('"', 1)[0]
+        target = response.content.decode('utf8').split('action="')[1].split('"', 1)[0]
         self.assertEqual(target, url)
 
         data = {'password': 'example'}

@@ -1,5 +1,5 @@
 import hashlib
-import urllib
+from urllib.parse import urlencode
 
 from django import template
 
@@ -17,6 +17,6 @@ def gravatar(email, size=48):
     """
     url = 'https://secure.gravatar.com/avatar/%s?%s' % (
         hashlib.md5(email.encode('utf-8')).hexdigest(),
-        urllib.urlencode({'s': str(size), 'd': 'mm'}),
+        urlencode({'s': str(size), 'd': 'mm'}),
     )
     return url
