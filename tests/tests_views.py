@@ -71,13 +71,13 @@ class DjangoPeopleTest(TestCase):
         response = self.client.get(reverse('logout'), follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.redirect_chain), 1)
-        self.assertTrue('log in' in response.content)
+        self.assertContains(response, 'log in')
 
         self.client.logout()
         data['next'] = reverse('about')
         response = self.client.post(url, data, follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue('<h1>About Django People</h1>' in response.content)
+        self.assertContains(response, '<h1>About Django People</h1>')
 
     def test_login_redirect(self):
         url = reverse('login')
@@ -160,7 +160,7 @@ class DjangoPeopleTest(TestCase):
         request = prepare_request(factory.get(url))
         response = signup(request)
         response.render()
-        self.assertTrue('foo.example.com' in response.content)
+        self.assertContains(response, 'foo.example.com')
 
         del data['password1']
         del data['password2']
@@ -286,7 +286,7 @@ class DjangoPeopleTest(TestCase):
         url = reverse('country_looking_for', args=['at', 'full-time'])
         response = self.client.get(url)
         self.assertContains(response, 'Austria, seeking full-time work')
-        self.assertTrue('Dave Brubeck' in response.content)
+        self.assertContains(response, 'Dave Brubeck')
 
         url = reverse('country_looking_for', args=['fr', 'freelance'])
         response = self.client.get(url)
@@ -393,4 +393,4 @@ class DjangoPeopleTest(TestCase):
         self.client.get(url, {'lon': 12, 'lat': 2})
         get.assert_called_with(
             'http://ws.geonames.org/findNearbyPlaceNameJSON',
-            params={u'lat': [u'2'], 'username': 'brutasse', u'lon': [u'12']})
+            params={'lat': ['2'], 'username': 'brutasse', 'lon': ['12']})
