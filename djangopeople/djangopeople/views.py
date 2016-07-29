@@ -388,7 +388,7 @@ class ProfileView(generic.DetailView):
                 'name': name,
                 'value': value,
             })
-        ims.sort(lambda x, y: cmp(x['shortname'], y['shortname']))
+        ims.sort(key=lambda x: x['shortname'])
 
         services = []
         for key, value in mtags.get('services', {}).items():
@@ -400,7 +400,7 @@ class ProfileView(generic.DetailView):
                 'name': name,
                 'value': value,
             })
-        services.sort(lambda x, y: cmp(x['shortname'], y['shortname']))
+        services.sort(key=lambda x: x['shortname'])
 
         # Set up vars that control privacy stuff
         privacy = {
