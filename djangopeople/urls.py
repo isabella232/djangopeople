@@ -6,13 +6,10 @@ from django.contrib.auth import views as auth_views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.http import HttpResponse, HttpResponseGone
 from django.shortcuts import redirect
-from django.template.base import add_to_builtins
 
 from .django_openidauth import views as django_openidauth_views
 from .django_openidconsumer import views as django_openidconsumer_views
 from .djangopeople import views, api
-
-add_to_builtins('django.templatetags.i18n')
 
 
 def perm_redirect(url):
@@ -31,7 +28,7 @@ def gone(request):
     return HttpResponseGone()
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls), name='admin'),
+    url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name='index'),
     url(r'^login/$', auth_views.login,
         {'template_name': 'login.html'}, name='login'),

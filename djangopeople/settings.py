@@ -73,6 +73,9 @@ TEMPLATES = [{
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
     'APP_DIRS': True,
     'OPTIONS': {
+        'builtins': [
+            'django.templatetags.i18n',
+        ],
         'context_processors': [
             'django.contrib.auth.context_processors.auth',
             'django.template.context_processors.debug',
