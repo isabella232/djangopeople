@@ -1,4 +1,4 @@
-from mock import patch
+from unittest.mock import patch
 
 from django.conf import settings
 from django.contrib.auth.middleware import AuthenticationMiddleware
