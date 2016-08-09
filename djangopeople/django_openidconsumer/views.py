@@ -1,3 +1,4 @@
+import base64
 import re
 import urllib
 
@@ -163,7 +164,7 @@ def signout(request):
 
 def logo(request):
     return HttpResponse(
-        OPENID_LOGO_BASE_64.decode('base64'), content_type='image/gif'
+        base64.b64decode(OPENID_LOGO_BASE_64), content_type='image/gif'
     )
 
 # Logo from http://openid.net/login-bg.gif
