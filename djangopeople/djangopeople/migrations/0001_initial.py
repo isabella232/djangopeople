@@ -65,7 +65,7 @@ class Migration(migrations.Migration):
                 ('latitude', models.FloatField(verbose_name='Latitude')),
                 ('longitude', models.FloatField(verbose_name='Longitude')),
                 ('location_description', models.CharField(max_length=50, verbose_name='Location')),
-                ('photo', models.FileField(upload_to=b'profiles', blank=True)),
+                ('photo', models.FileField(upload_to='profiles', blank=True)),
                 ('profile_views', models.IntegerField(default=0, verbose_name='Profile views')),
                 ('openid_server', models.URLField(max_length=255, verbose_name='OpenID server', blank=True)),
                 ('openid_delegate', models.URLField(max_length=255, verbose_name='OpenID delegate', blank=True)),
