@@ -15,9 +15,9 @@ from .models import UserOpenID, associate_openid, unassociate_openid
 
 
 def _make_hash(hash_type, user, openid):
-    return hashlib.md5('%s:%d:%s:%s' % (
+    return hashlib.md5(('%s:%d:%s:%s' % (
         hash_type, user.id, str(openid), settings.SECRET_KEY
-    )).hexdigest()
+    )).encode('utf8')).hexdigest()
 
 
 @login_required
