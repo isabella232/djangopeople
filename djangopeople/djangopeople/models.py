@@ -136,9 +136,6 @@ class DjangoPerson(models.Model):
     longitude = models.FloatField(_('Longitude'))
     location_description = models.CharField(_('Location'), max_length=50)
 
-    # Profile photo -- FIXME remove when we have migrations, now using gravatar
-    photo = models.FileField(blank=True, upload_to='profiles')
-
     # Stats
     profile_views = models.IntegerField(_('Profile views'), default=0)
 
