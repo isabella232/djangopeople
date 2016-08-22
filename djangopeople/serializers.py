@@ -15,15 +15,15 @@ class JSONEncoder(json.JSONEncoder):
 
     def default(self, o):
         if isinstance(o, YadisServiceManager):
-            return dict([(k, v) for k, v in o.__dict__.iteritems()
+            return dict([(k, v) for k, v in o.__dict__.items()
                          if not k.startswith('_')],
                         __class__='YadisServiceManager')
         elif isinstance(o, OpenIDServiceEndpoint):
-            return dict([(k, v) for k, v in o.__dict__.iteritems()
+            return dict([(k, v) for k, v in o.__dict__.items()
                          if k != 'openid_type_uris'],
                         __class__='OpenIDServiceEndpoint')
         elif isinstance(o, OpenID):
-            data = dict([(k, v) for k, v in o.__dict__.iteritems()
+            data = dict([(k, v) for k, v in o.__dict__.items()
                          if k not in ('is_iname', 'ax', 'sreg')],
                         __class__='OpenID')
             data['sreg_'] = o.sreg
@@ -57,7 +57,7 @@ class JSONSerializer(object):
             return globals()[cls_name](**d)
         elif cls_name == 'OpenIDServiceEndpoint':
             endpoint = OpenIDServiceEndpoint()
-            for k, v in d.iteritems():
+            for k, v in d.items():
                 setattr(endpoint, k, v)
             return endpoint
         return d
