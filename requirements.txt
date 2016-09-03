@@ -4,7 +4,7 @@ dj-database-url==0.4.1
 django-classy-tags==0.8.0
 django-password-reset==0.9
 django-redis-cache==1.7.0
-django-sekizai==0.9
+django-sekizai==0.10
 django-ses==0.8
 django-storages==1.5
 django-tagging==0.4.3
