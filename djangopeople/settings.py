@@ -99,7 +99,7 @@ if not DEBUG:
         )),
     )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'djangopeople.djangopeople.middleware.CanonicalDomainMiddleware',
@@ -114,11 +114,11 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.admindocs.middleware.XViewMiddleware',
     'djangopeople.djangopeople.middleware.NoDoubleSlashes',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-)
+]
 
 ROOT_URLCONF = 'djangopeople.urls'
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -135,7 +135,7 @@ INSTALLED_APPS = (
 
     'password_reset',
     'sekizai',
-)
+]
 
 if 'SENTRY_DSN' in os.environ:
     INSTALLED_APPS += (
@@ -156,6 +156,12 @@ X_FRAME_OPTIONS = 'DENY'
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    INSTALLED_APPS.append('debug_toolbar')
+    INTERNAL_IPS = ['127.0.0.1']
+    MIDDLEWARE_CLASSES.insert(
+        MIDDLEWARE_CLASSES.index('django.middleware.common.CommonMiddleware') + 1,
+        'debug_toolbar.middleware.DebugToolbarMiddleware'
+    )
 else:
     EMAIL_BACKEND = 'django_ses.SESBackend'
     AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY']
@@ -191,12 +197,3 @@ if 'REDISTOGO_URL' in os.environ:
             'VERSION': os.environ.get('CACHE_VERSION', 0),
         },
     }
-
-try:
-    import debug_toolbar  # noqa
-except ImportError:
-    pass
-else:
-    INSTALLED_APPS += (
-        'debug_toolbar',
-    )
