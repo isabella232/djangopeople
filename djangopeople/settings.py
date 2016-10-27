@@ -1,7 +1,7 @@
 import dj_database_url
 import os
 
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.utils.six.moves.urllib import parse
 
 OUR_ROOT = os.path.realpath(os.path.dirname(__file__))
@@ -99,7 +99,7 @@ if not DEBUG:
         )),
     )
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'djangopeople.djangopeople.middleware.CanonicalDomainMiddleware',
@@ -158,8 +158,8 @@ if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     INSTALLED_APPS.append('debug_toolbar')
     INTERNAL_IPS = ['127.0.0.1']
-    MIDDLEWARE_CLASSES.insert(
-        MIDDLEWARE_CLASSES.index('django.middleware.common.CommonMiddleware') + 1,
+    MIDDLEWARE.insert(
+        MIDDLEWARE.index('django.middleware.common.CommonMiddleware') + 1,
         'debug_toolbar.middleware.DebugToolbarMiddleware'
     )
 else:

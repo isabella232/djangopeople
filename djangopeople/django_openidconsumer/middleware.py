@@ -1,4 +1,7 @@
-class OpenIDMiddleware(object):
+from django.utils.deprecation import MiddlewareMixin
+
+
+class OpenIDMiddleware(MiddlewareMixin):
     """
     Populate request.openid and request.openids with their openid. This comes
     eithen from their cookie or from their session, depending on the presence

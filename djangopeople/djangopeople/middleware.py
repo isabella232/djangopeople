@@ -2,13 +2,14 @@ import re
 
 from django.conf import settings
 from django.core.exceptions import MiddlewareNotUsed
+from django.utils.deprecation import MiddlewareMixin
 from django.utils.http import urlquote
 from django.shortcuts import redirect
 
 multislash_re = re.compile('/{2,}')
 
 
-class NoDoubleSlashes:
+class NoDoubleSlashes(MiddlewareMixin):
     """
     123-reg redirects djangopeople.com/blah to djangopeople.net//blah - this
     middleware eliminates multiple slashes from incoming requests.
@@ -21,7 +22,7 @@ class NoDoubleSlashes:
             return None
 
 
-class RemoveWWW(object):
+class RemoveWWW(MiddlewareMixin):
     def process_request(self, request):
         host = request.get_host()
         if host and host.startswith('www.'):
@@ -34,12 +35,13 @@ class RemoveWWW(object):
             return None
 
 
-class CanonicalDomainMiddleware(object):
+class CanonicalDomainMiddleware(MiddlewareMixin):
     """
     Force-redirect to settings.CANONICAL_HOSTNAME if that's not the domain
     being accessed. If the setting isn't set, do nothing.
     """
-    def __init__(self):
+    def __init__(self, get_response):
+        self.get_response = get_response
         try:
             self.canonical_hostname = settings.CANONICAL_HOSTNAME
         except AttributeError:

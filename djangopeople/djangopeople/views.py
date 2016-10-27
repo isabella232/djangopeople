@@ -9,11 +9,11 @@ import requests
 from django.conf import settings
 from django.contrib import auth
 from django.core import signing
-from django.core.urlresolvers import reverse
 from django.db import transaction
 from django.db.models import Q, F
 from django.http import Http404, HttpResponseForbidden, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.views import generic
@@ -41,13 +41,13 @@ NOTALPHA_RE = re.compile('[^a-zA-Z0-9]')
 def must_be_owner(view):
     def inner(request, *args, **kwargs):
         if 'username' in kwargs:
-            if not request.user or request.user.is_anonymous() \
-               or request.user.username != kwargs['username']:
+            if (not request.user or request.user.is_anonymous or
+                    request.user.username != kwargs['username']):
                 return HttpResponseForbidden('Not allowed')
         else:
             if (
                 not request.user or
-                request.user.is_anonymous() or
+                request.user.is_anonymous or
                 request.user.username != args[0]
             ):
                 return HttpResponseForbidden('Not allowed')
@@ -100,7 +100,7 @@ recent = RecentView.as_view()
 
 
 def redirect_to_logged_in_user_profile(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         url = reverse('user_profile', kwargs={'username': request.user})
     else:
         url = reverse('index')
@@ -129,7 +129,7 @@ class OpenIDWhatNext(generic.RedirectView):
         if not self.request.openid:
             return reverse('index')
 
-        if self.request.user.is_anonymous():
+        if self.request.user.is_anonymous:
             # Have they logged in with an OpenID that matches an account?
             try:
                 user_openid = UserOpenID.objects.get(
@@ -152,7 +152,7 @@ class SignupView(generic.FormView):
     template_name = 'signup.html'
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_anonymous():
+        if not request.user.is_anonymous:
             return redirect(reverse('index'))
         return super(SignupView, self).dispatch(request, *args, **kwargs)
 
@@ -407,11 +407,11 @@ class ProfileView(generic.DetailView):
         privacy = {
             'show_im': (
                 mtags['privacy']['im'] == 'public' or
-                not self.request.user.is_anonymous()
+                not self.request.user.is_anonymous
             ),
             'show_email': (
                 mtags['privacy']['email'] == 'public' or
-                (not self.request.user.is_anonymous() and
+                (not self.request.user.is_anonymous and
                  mtags['privacy']['email'] == 'private')
             ),
             'hide_from_search': mtags['privacy']['search'] != 'public',

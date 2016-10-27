@@ -8,9 +8,9 @@ from openid.consumer.discover import DiscoveryFailure
 from openid.yadis import xri
 
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.utils.encoding import force_text
 from django.utils.html import escape
 from django.utils.translation import ugettext as _

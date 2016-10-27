@@ -4,10 +4,10 @@ from django.conf import settings
 from django.contrib.auth.middleware import AuthenticationMiddleware
 from django.contrib.auth.models import User
 from django.contrib.sessions.middleware import SessionMiddleware
-from django.core.urlresolvers import reverse
 from django.middleware.common import CommonMiddleware
 from django.test import TestCase
 from django.test.client import RequestFactory
+from django.urls import reverse
 from django.utils import timezone
 
 from djangopeople.django_openidauth.models import associate_openid
