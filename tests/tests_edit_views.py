@@ -790,8 +790,7 @@ class EditViewTest(TestCase):
         self.assertEqual(p.location_description, new_location_description)
         self.assertEqual(p.country.iso_code, new_country)
 
-    def test_location_bug_24(self):
-        # https://github.com/brutasse/djangopeople/issues/24
+    def test_update_us_location(self):
         url = reverse('edit_location', args=['daveb'])
         data = {
             'location_description': 'Rapid City, South Dakota',

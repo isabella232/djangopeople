@@ -1,6 +1,6 @@
-.. image:: https://travis-ci.org/brutasse/djangopeople.png?branch=master
+.. image:: https://travis-ci.org/django/djangopeople.png?branch=master
    :alt: Build Status
-   :target: https://travis-ci.org/brutasse/djangopeople
+   :target: https://travis-ci.org/django/djangopeople
 
 This is the codebase behind what used to be djangopeople.net and now lives at
 people.djangoproject.com.
@@ -8,14 +8,14 @@ people.djangoproject.com.
 If you want to add features or make big changes, please `create a new issue`_
 first!
 
-.. _create a new issue: https://github.com/brutasse/djangopeople/issues/new
+.. _create a new issue: https://github.com/django/djangopeople/issues/new
 
 Hacking
 -------
 
 ::
 
-    git clone git@github.com:brutasse/djangopeople.git
+    git clone git@github.com:django/djangopeople.git
     cd djangopeople
     mkvirtualenv -p python3.5 djangopeople
     pip install -r requirements.txt
