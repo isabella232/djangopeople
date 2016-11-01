@@ -15,9 +15,7 @@ txpull:
 initialdeploy:
 	git push heroku master
 	heroku run django-admin.py migrate --noinput
-	heroku run django-admin.py collectstatic
 	heroku run django-admin.py fix_counts
 
 deploy:
 	git push heroku master
-	heroku run django-admin.py collectstatic --noinput
