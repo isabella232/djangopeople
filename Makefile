@@ -1,10 +1,10 @@
 proj = djangopeople
 
 makemessages:
-	cd $(proj) && envdir ../env django-admin.py makemessages -a
+	cd $(proj) && envdir ../env django-admin makemessages -a
 
 compilemessages:
-	cd $(proj) && envdir ../env django-admin.py compilemessages
+	cd $(proj) && envdir ../env django-admin compilemessages
 
 txpush:
 	tx push -s
@@ -14,8 +14,8 @@ txpull:
 
 initialdeploy:
 	git push heroku master
-	heroku run django-admin.py migrate --noinput
-	heroku run django-admin.py fix_counts
+	heroku run django-admin migrate --noinput
+	heroku run django-admin fix_counts
 
 deploy:
 	git push heroku master
