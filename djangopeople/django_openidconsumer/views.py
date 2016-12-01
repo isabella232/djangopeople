@@ -167,6 +167,7 @@ def logo(request):
         base64.b64decode(OPENID_LOGO_BASE_64), content_type='image/gif'
     )
 
+
 # Logo from http://openid.net/login-bg.gif
 # Embedded here for convenience; you should serve this as a static file
 OPENID_LOGO_BASE_64 = """

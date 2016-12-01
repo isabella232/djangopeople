@@ -70,6 +70,8 @@ class IndexView(generic.TemplateView):
             'home': True,
         })
         return ctx
+
+
 index = IndexView.as_view()
 
 
@@ -83,6 +85,8 @@ class AboutView(generic.TemplateView):
             'countries': Country.objects.top_countries(),
         })
         return ctx
+
+
 about = AboutView.as_view()
 
 
@@ -96,6 +100,8 @@ class RecentView(generic.TemplateView):
             'people': people.order_by('-auth_user.date_joined')[:50],
         })
         return ctx
+
+
 recent = RecentView.as_view()
 
 
@@ -115,6 +121,8 @@ def logout(request):
 
 class RecoverView(Recover):
     search_fields = ['username']
+
+
 recover = RecoverView.as_view()
 
 
@@ -144,6 +152,8 @@ class OpenIDWhatNext(generic.RedirectView):
             auth.login(self.request, user)
             return reverse('user_profile', args=[user.username])
         return reverse('openid_associations')
+
+
 openid_whatnext = OpenIDWhatNext.as_view()
 
 
@@ -249,6 +259,8 @@ class SignupView(generic.FormView):
             'openid': self.request.openid,
         })
         return ctx
+
+
 signup = SignupView.as_view()
 signup = transaction.atomic(signup)
 
@@ -311,6 +323,8 @@ class CountryView(CleverPaginator, generic.ListView):
             'people_list': self.all_people,
         })
         return context
+
+
 country = CountryView.as_view()
 
 
@@ -338,6 +352,8 @@ class RegionView(CleverPaginator, generic.ListView):
             'people_list': self.all_people,
         })
         return context
+
+
 region = RegionView.as_view()
 
 
@@ -359,6 +375,8 @@ class CountrySitesView(generic.ListView):
             'country': self.country,
         })
         return context
+
+
 country_sites = CountrySitesView.as_view()
 
 
@@ -434,6 +452,8 @@ class ProfileView(generic.DetailView):
             'people_list': self.object.get_nearest(),
         })
         return context
+
+
 profile = ProfileView.as_view()
 
 
@@ -462,24 +482,32 @@ class EditFindingView(DjangoPersonEditViewBase):
                 MACHINETAGS_FROM_FIELDS.items():
             initial[fieldname] = mtags[namespace][predicate]
         return initial
+
+
 edit_finding = must_be_owner(EditFindingView.as_view())
 
 
 class EditPortfolioView(DjangoPersonEditViewBase):
     form_class = PortfolioForm
     template_name = 'edit_portfolio.html'
+
+
 edit_portfolio = must_be_owner(EditPortfolioView.as_view())
 
 
 class EditAccountView(DjangoPersonEditViewBase):
     form_class = AccountForm
     template_name = 'edit_account.html'
+
+
 edit_account = must_be_owner(EditAccountView.as_view())
 
 
 class EditSkillsView(DjangoPersonEditViewBase):
     form_class = SkillsForm
     template_name = 'edit_skills.html'
+
+
 edit_skills = must_be_owner(EditSkillsView.as_view())
 
 
@@ -492,12 +520,16 @@ class EditPassword(generic.UpdateView):
 
     def get_success_url(self):
         return reverse('user_profile', args=[self.kwargs['username']])
+
+
 edit_password = must_be_owner(EditPassword.as_view())
 
 
 class EditBioView(DjangoPersonEditViewBase):
     form_class = BioForm
     template_name = 'edit_bio.html'
+
+
 edit_bio = must_be_owner(EditBioView.as_view())
 
 
@@ -511,6 +543,8 @@ class EditLocationView(DjangoPersonEditViewBase):
             'country': self.object.country.iso_code,
         })
         return initial
+
+
 edit_location = must_be_owner(EditLocationView.as_view())
 
 
@@ -525,6 +559,8 @@ class SkillCloudView(generic.TemplateView):
             'tags': tags,
         })
         return context
+
+
 skill_cloud = SkillCloudView.as_view()
 
 
@@ -546,6 +582,8 @@ class CountrySkillCloudView(generic.DetailView):
             'tags': tags,
         })
         return context
+
+
 country_skill_cloud = CountrySkillCloudView.as_view()
 
 
@@ -592,6 +630,8 @@ class Skill(TaggedObjectList):
     template_name = 'skill.html'
     context_object_name = 'people_list'
     select_related = ['user', 'country']
+
+
 skill = Skill.as_view()
 
 
@@ -611,6 +651,8 @@ class CountrySkill(TaggedObjectList):
         filters = super(CountrySkill, self).get_extra_filter_args()
         filters['country__iso_code'] = self.kwargs['country_code'].upper()
         return filters
+
+
 country_skill = CountrySkill.as_view()
 
 
@@ -638,6 +680,8 @@ class CountryLookingForView(generic.ListView):
             'looking_for': self.kwargs['looking_for'],
         })
         return context
+
+
 country_looking_for = CountryLookingForView.as_view()
 
 
@@ -679,6 +723,8 @@ class SearchView(generic.ListView):
         return DjangoPerson.objects.filter(
             combined,
         ).select_related().distinct()
+
+
 search = SearchView.as_view()
 
 
@@ -693,6 +739,8 @@ class IRCActiveView(generic.ListView):
         ).order_by('-last_active_on_irc')
         # Filter out the people who don't want to be tracked (inefficient)
         return [r for r in results if r.irc_tracking_allowed()]
+
+
 irc_active = IRCActiveView.as_view()
 
 
@@ -711,11 +759,15 @@ class DeletionRequestView(RequestFormMixin, generic.FormView):
         form.save()
         return redirect(reverse('delete_account_next',
                                 args=[self.request.user.username]))
+
+
 delete_account_request = must_be_owner(DeletionRequestView.as_view())
 
 
 class DeletionNext(generic.TemplateView):
     template_name = 'delete_account_next.html'
+
+
 delete_account_next = must_be_owner(DeletionNext.as_view())
 
 
@@ -744,6 +796,8 @@ class AccountDeletionView(RequestFormMixin, generic.FormView):
         ctx = super(AccountDeletionView, self).get_context_data(**kwargs)
         ctx['key'] = self.kwargs['key']
         return ctx
+
+
 delete_account = must_be_owner(AccountDeletionView.as_view())
 
 
@@ -754,6 +808,8 @@ class DeletionDone(generic.TemplateView):
         if User.objects.filter(username=kwargs['username']).exists():
             raise Http404
         return super(DeletionDone, self).dispatch(request, *args, **kwargs)
+
+
 delete_account_done = DeletionDone.as_view()
 
 

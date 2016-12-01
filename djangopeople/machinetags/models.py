@@ -25,6 +25,7 @@ class MachineTaggedItem(models.Model):
             value = '"%s"' % value.replace('"', r'\"')
         return '%s:%s=%s' % (self.namespace, self.predicate, value)
 
+
 _part_re = re.compile('^[a-z][a-z0-9_]*$')
 _machinetag_re = re.compile('^([a-z][a-z0-9_]*):([a-z][a-z0-9_]*)=(.*)$')
 

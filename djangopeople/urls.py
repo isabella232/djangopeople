@@ -15,6 +15,7 @@ from .djangopeople import views, api
 def perm_redirect(url):
     return lambda req: redirect(url, permanent=True)
 
+
 favicon = perm_redirect(
     '%sdjangopeople/img/favicon.ico' % settings.STATIC_URL
 )
@@ -26,6 +27,7 @@ def robots(request):
 
 def gone(request):
     return HttpResponseGone()
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

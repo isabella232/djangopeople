@@ -23,6 +23,7 @@ class DjangoPersonAdmin(admin.ModelAdmin):
 class PortfolioSiteAdmin(admin.ModelAdmin):
     pass
 
+
 admin.site.register(Country, CountryAdmin)
 admin.site.register(CountrySite, CountrySiteAdmin)
 admin.site.register(Region, RegionAdmin)

@@ -37,6 +37,7 @@ LANGUAGE_CODE = 'en-us'
 def gettext(s):
     return s
 
+
 LANGUAGES = (
     ('en', gettext('English')),
     ('cs', gettext('Czech')),
