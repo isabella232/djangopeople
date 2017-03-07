@@ -12,7 +12,7 @@ envdir==0.7
 geopy==1.11.0
 gevent==1.1.2
 greenlet==0.4.10
-gunicorn==19.6
+gunicorn==19.7
 psycopg2==2.6.2
 python3-openid==3.0.10
 pytz==2016.10
