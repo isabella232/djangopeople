@@ -10,8 +10,8 @@ django-storages==1.5.1
 django-tagging==0.4.5
 envdir==0.7
 geopy==1.11.0
-gevent==1.1.2
-greenlet==0.4.10
+gevent==1.2.1
+greenlet==0.4.12
 gunicorn==19.7
 psycopg2==2.7
 python3-openid==3.0.10
