@@ -1,6 +1,5 @@
 from django import forms
 from django.forms.utils import flatatt
-from django.utils.encoding import force_text
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
@@ -35,14 +34,14 @@ class GroupedSelect(forms.Select):
             value = ''
         final_attrs = self.build_attrs(attrs, name=name)
         output = [u'<select%s>' % flatatt(final_attrs)]
-        str_value = force_text(value)
+        str_value = str(value)
         for group_label, group in self.choices:
             if group_label:  # should belong to an optgroup
-                group_label = force_text(group_label)
+                group_label = str(group_label)
                 output.append('<optgroup label="%s">' % escape(group_label))
             for k, v in group:
-                option_value = force_text(k)
-                option_label = force_text(v)
+                option_value = str(k)
+                option_label = str(v)
                 selected_html = ((option_value == str_value) and
                                  ' selected="selected"' or '')
                 output.append('<option value="%s"%s>%s</option>' % (
@@ -70,7 +69,7 @@ class GroupedChoiceField(forms.ChoiceField):
         value = super(forms.ChoiceField, self).clean(value)
         if value in (None, ''):
             value = ''
-        value = force_text(value)
+        value = str(value)
         if value == '':
             return value
         valid_values = []
