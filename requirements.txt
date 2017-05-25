@@ -1,5 +1,5 @@
 Django==1.10.7
-boto==2.46.1
+boto==2.47.0
 dj-database-url==0.4.2
 django-classy-tags==0.8.0
 django-password-reset==0.9
