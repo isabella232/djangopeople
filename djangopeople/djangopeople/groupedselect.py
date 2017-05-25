@@ -29,10 +29,10 @@ from django.utils.translation import ugettext as _
 
 
 class GroupedSelect(forms.Select):
-    def render(self, name, value, attrs=None, choices=()):
+    def render(self, name, value, attrs=None, choices=(), renderer=None):
         if value is None:
             value = ''
-        final_attrs = self.build_attrs(attrs, name=name)
+        final_attrs = self.build_attrs(attrs, extra_attrs={'name': name})
         output = [u'<select%s>' % flatatt(final_attrs)]
         str_value = str(value)
         for group_label, group in self.choices:
