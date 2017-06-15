@@ -39,14 +39,24 @@ def gettext(s):
 
 
 LANGUAGES = (
-    ('en', gettext('English')),
     ('cs', gettext('Czech')),
-    ('ru', gettext('Russian')),
-    ('fr', gettext('French')),
+    ('el', gettext('Greek')),
+    ('en', gettext('English')),
     ('es', gettext('Spanish')),
+    ('fa', gettext('Persian')),
+    ('fr', gettext('French')),
     ('he', gettext('Hebrew')),
+    ('hi', gettext('Hindi')),
+    ('id', gettext('Indonesian')),
+    ('it', gettext('Italian')),
+    ('pl', gettext('Polish')),
     ('pt', gettext('Portuguese')),
+    ('pt_BR', gettext('Brazilian Portuguese')),
+    ('ru', gettext('Russian')),
     ('sk', gettext('Slovak')),
+    ('sq', gettext('Albanian')),
+    ('sv', gettext('Swedish')),
+    ('tr', gettext('Turkish')),
 )
 
 LOCALE_PATHS = (
