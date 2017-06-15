@@ -49,6 +49,9 @@ To push new strings to Transifex, run::
     python manage.py makemessages -l en
     make txpush
 
+Update the ``LANGUAGES`` setting in ``settings.py`` when adding new languages
+to the ``locale`` directory.
+
 Deploying on Heroku
 -------------------
 
