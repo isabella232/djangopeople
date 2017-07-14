@@ -18,7 +18,7 @@ from django.utils.translation import ugettext as _
 from .middleware import OpenIDMiddleware
 from .util import DjangoOpenIDStore, from_openid_response
 
-NEXT_URL_RE = re.compile('^/[-\w/]+$')
+NEXT_URL_RE = re.compile(r'^/[-\w/]+$')
 
 
 def get_url_host(request):
