@@ -2,7 +2,7 @@ Django==1.11.3
 boto==2.48.0
 dj-database-url==0.4.2
 django-classy-tags==0.8.0
-django-password-reset==0.9
+django-password-reset==1.0
 django-redis-cache==1.7.1
 django-sekizai==0.10
 django-ses==0.8.2
