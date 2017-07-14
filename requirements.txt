@@ -1,4 +1,4 @@
-Django==1.11.1
+Django==1.11.3
 boto==2.48.0
 dj-database-url==0.4.2
 django-classy-tags==0.8.0
