@@ -79,7 +79,7 @@ class Country(models.Model):
 
     @property
     def flag_url(self):
-        return 'djangopeople/img/flags/%s.gif' % self.iso_code.lower()
+        return 'djangopeople/img/flags/%s.svg' % self.iso_code.lower()
 
 
 class Region(models.Model):

@@ -270,7 +270,7 @@ class DjangoPeopleTest(TestCase):
 
         python_url = reverse('country_skill', args=['at', 'python'])
         self.assertContains(response, python_url)
-        self.assertContains(response, 'img/flags/at.gif')
+        self.assertContains(response, 'img/flags/at.svg')
 
         url = reverse('country_skill_cloud', args=['xy'])
         response = self.client.get(url)
