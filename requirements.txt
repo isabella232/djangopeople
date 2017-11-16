@@ -7,7 +7,7 @@ django-redis-cache==1.7.1
 django-sekizai==0.10
 django-ses==0.8.2
 django-storages==1.6.3
-django-tagging==0.4.5
+django-tagging==0.4.6
 envdir==0.7
 geopy==1.11.0
 gevent==1.2.2
