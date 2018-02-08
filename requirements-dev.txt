@@ -1,5 +1,5 @@
 -r requirements.txt
 django-debug-toolbar==1.8
 flake8
-pep8-naming==0.4.1
+pep8-naming
 transifex-client
