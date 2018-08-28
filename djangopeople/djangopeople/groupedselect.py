@@ -56,11 +56,9 @@ class GroupedSelect(forms.Select):
 
 # field for grouped choices, handles cleaning of funky choice tuple
 class GroupedChoiceField(forms.ChoiceField):
-    def __init__(self, choices=(), required=True, widget=GroupedSelect,
-                 label=None, initial=None, help_text=None):
-        super(forms.ChoiceField, self).__init__(required, widget, label,
-                                                initial, help_text)
-        self.choices = choices
+    def __init__(self, **kwargs):
+        kwargs.setdefault('widget', GroupedSelect)
+        super().__init__(**kwargs)
 
     def clean(self, value):
         """
