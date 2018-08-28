@@ -61,7 +61,7 @@ class IndexView(generic.TemplateView):
     def get_context_data(self, **kwargs):
         people = DjangoPerson.objects.all().select_related()
         people = people.order_by('-id')[:100]
-        ctx = super(IndexView, self).get_context_data(**kwargs)
+        ctx = super().get_context_data(**kwargs)
         ctx.update({
             'people_list': people,
             'people_list_limited': people[:4],
@@ -79,7 +79,7 @@ class AboutView(generic.TemplateView):
     template_name = 'about.html'
 
     def get_context_data(self, **kwargs):
-        ctx = super(AboutView, self).get_context_data(**kwargs)
+        ctx = super().get_context_data(**kwargs)
         ctx.update({
             'total_people': DjangoPerson.objects.count(),
             'countries': Country.objects.top_countries(),
@@ -94,7 +94,7 @@ class RecentView(generic.TemplateView):
     template_name = 'recent.html'
 
     def get_context_data(self, **kwargs):
-        ctx = super(RecentView, self).get_context_data(**kwargs)
+        ctx = super().get_context_data(**kwargs)
         people = DjangoPerson.objects.all().select_related()
         ctx.update({
             'people': people.order_by('-auth_user.date_joined')[:50],
@@ -164,7 +164,7 @@ class SignupView(generic.FormView):
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_anonymous:
             return redirect(reverse('index'))
-        return super(SignupView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         creation_args = {
@@ -218,19 +218,19 @@ class SignupView(generic.FormView):
         user.backend = 'django.contrib.auth.backends.ModelBackend'
         auth.login(self.request, user)
         self.person = person
-        return super(SignupView, self).form_valid(form)
+        return super().form_valid(form)
 
     def get_success_url(self):
         return self.person.get_absolute_url()
 
     def get_form_kwargs(self):
-        kwargs = super(SignupView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         if self.request.openid:
             kwargs['openid'] = self.request.openid
         return kwargs
 
     def get_initial(self):
-        initial = super(SignupView, self).get_initial()
+        initial = super().get_initial()
         if self.request.openid and self.request.openid.sreg:
             sreg = self.request.openid.sreg
             first_name = ''
@@ -254,7 +254,7 @@ class SignupView(generic.FormView):
         return initial
 
     def get_context_data(self, **kwargs):
-        ctx = super(SignupView, self).get_context_data(**kwargs)
+        ctx = super().get_context_data(**kwargs)
         ctx.update({
             'openid': self.request.openid,
         })
@@ -316,7 +316,7 @@ class CountryView(CleverPaginator, generic.ListView):
         return self.country.num_people
 
     def get_context_data(self, **kwargs):
-        context = super(CountryView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context.update({
             'regions': self.country.top_regions(),
             'country': self.country,
@@ -346,7 +346,7 @@ class RegionView(CleverPaginator, generic.ListView):
         return self.region.num_people
 
     def get_context_data(self, **kwargs):
-        context = super(RegionView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context.update({
             'country': self.region,
             'people_list': self.all_people,
@@ -370,7 +370,7 @@ class CountrySitesView(generic.ListView):
         ).order_by('contributor')
 
     def get_context_data(self, **kwargs):
-        context = super(CountrySitesView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context.update({
             'country': self.country,
         })
@@ -393,7 +393,7 @@ class ProfileView(generic.DetailView):
         return person
 
     def get_context_data(self, **kwargs):
-        context = super(ProfileView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         mtags = tagdict(self.object.machinetags.all())
 
         # Set up convenient iterables for IM and services
@@ -538,7 +538,7 @@ class EditLocationView(DjangoPersonEditViewBase):
     template_name = 'edit_location.html'
 
     def get_initial(self):
-        initial = super(EditLocationView, self).get_initial()
+        initial = super().get_initial()
         initial.update({
             'country': self.object.country.iso_code,
         })
@@ -554,7 +554,7 @@ class SkillCloudView(generic.TemplateView):
     def get_context_data(self, **kwargs):
         tags = DjangoPerson.skilltags.cloud(steps=5)
         calculate_cloud(tags, 5)
-        context = super(SkillCloudView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context.update({
             'tags': tags,
         })
@@ -573,7 +573,7 @@ class CountrySkillCloudView(generic.DetailView):
                                  iso_code=self.kwargs['country_code'].upper())
 
     def get_context_data(self, **kwargs):
-        context = super(CountrySkillCloudView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         tags = Tag.objects.cloud_for_model(DjangoPerson, steps=5, filters={
             'country': self.object,
         })
@@ -620,7 +620,7 @@ class TaggedObjectList(generic.ListView):
                 self.model,
                 counts=self.related_tag_counts
             )
-        ctx = super(TaggedObjectList, self).get_context_data(**kwargs)
+        ctx = super().get_context_data(**kwargs)
         return ctx
 
 
@@ -645,10 +645,10 @@ class CountrySkill(TaggedObjectList):
         kwargs['country'] = Country.objects.get(
             iso_code=self.kwargs['country_code'].upper()
         )
-        return super(CountrySkill, self).get_context_data(**kwargs)
+        return super().get_context_data(**kwargs)
 
     def get_extra_filter_args(self):
-        filters = super(CountrySkill, self).get_extra_filter_args()
+        filters = super().get_extra_filter_args()
         filters['country__iso_code'] = self.kwargs['country_code'].upper()
         return filters
 
@@ -674,7 +674,7 @@ class CountryLookingForView(generic.ListView):
         return DjangoPerson.objects.filter(country=self.country, id__in=ids)
 
     def get_context_data(self, **kwargs):
-        context = super(CountryLookingForView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context.update({
             'country': self.country,
             'looking_for': self.kwargs['looking_for'],
@@ -699,7 +699,7 @@ class SearchView(generic.ListView):
         return []
 
     def get_context_data(self, **kwargs):
-        context = super(SearchView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context.update({
             'q': self.q,
             'has_badwords': self.has_badwords
@@ -746,7 +746,7 @@ irc_active = IRCActiveView.as_view()
 
 class RequestFormMixin(object):
     def get_form_kwargs(self):
-        kwargs = super(RequestFormMixin, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs['request'] = self.request
         return kwargs
 
@@ -784,8 +784,7 @@ class AccountDeletionView(RequestFormMixin, generic.FormView):
                                     args=[request.user.username]))
         except signing.BadSignature:
             raise Http404
-        return super(AccountDeletionView, self).dispatch(request, *args,
-                                                         **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         form.save()
@@ -793,7 +792,7 @@ class AccountDeletionView(RequestFormMixin, generic.FormView):
                                 args=[self.request.user.username]))
 
     def get_context_data(self, **kwargs):
-        ctx = super(AccountDeletionView, self).get_context_data(**kwargs)
+        ctx = super().get_context_data(**kwargs)
         ctx['key'] = self.kwargs['key']
         return ctx
 
@@ -807,7 +806,7 @@ class DeletionDone(generic.TemplateView):
     def dispatch(self, request, *args, **kwargs):
         if User.objects.filter(username=kwargs['username']).exists():
             raise Http404
-        return super(DeletionDone, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
 
 delete_account_done = DeletionDone.as_view()

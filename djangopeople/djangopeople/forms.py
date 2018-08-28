@@ -58,7 +58,7 @@ class PopulateChoices(object):
     Populates some fields' choices at instanciation time.
     """
     def __init__(self, *args, **kwargs):
-        super(PopulateChoices, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         if 'country' in self.fields:
             self.fields['country'].choices = [('', '')] + [
                 (c.iso_code, c.name) for c in Country.objects.all()
@@ -76,7 +76,7 @@ class SignupForm(PopulateChoices, forms.Form):
         else:
             self.openid = False
 
-        super(SignupForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         if not self.openid:
             self.fields['password1'].required = True
@@ -249,7 +249,7 @@ class SkillsForm(forms.ModelForm):
         fields = ()
 
     def __init__(self, *args, **kwargs):
-        super(SkillsForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.initial = {
             'skills': edit_string_for_tags(self.instance.skilltags),
         }
@@ -324,7 +324,7 @@ class FindingForm(forms.ModelForm):
         fields = ()
 
     def __init__(self, *args, **kwargs):
-        super(FindingForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         # Dynamically add the fields for IM providers / external services
         self.service_fields = []
         for shortname, name, icon in SERVICES:
@@ -433,7 +433,7 @@ class PortfolioForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         # Dynamically add the fields for IM providers / external services
-        super(PortfolioForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.portfolio_fields = []
         self.initial = {}
         num = 1
@@ -522,7 +522,7 @@ class PasswordForm(forms.ModelForm):
 class RequestFormMixin(object):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
-        super(RequestFormMixin, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
 
 class DeletionRequestForm(RequestFormMixin, forms.Form):

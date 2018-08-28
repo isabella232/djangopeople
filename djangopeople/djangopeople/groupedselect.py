@@ -64,7 +64,7 @@ class GroupedChoiceField(forms.ChoiceField):
         """
         Validates that the input is in self.choices.
         """
-        value = super(forms.ChoiceField, self).clean(value)
+        value = super().clean(value)
         if value in (None, ''):
             value = ''
         value = str(value)

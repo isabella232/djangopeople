@@ -18,7 +18,6 @@ class EditViewTest(TestCase):
     fixtures = ['test_data']
 
     def setUp(self):  # noqa
-        super(EditViewTest, self).setUp()
         self.client.login(username='daveb', password='123456')
 
         with open(os.path.join(settings.OUR_ROOT, 'djangopeople/fixtures/pony.gif'), 'rb') as f:

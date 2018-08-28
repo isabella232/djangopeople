@@ -30,7 +30,7 @@ class JSONEncoder(json.JSONEncoder):
             data['ax_'] = o.ax
             return data
         else:
-            return super(JSONEncoder, self).default(o)
+            return super().default(o)
 
 
 class JSONSerializer(object):

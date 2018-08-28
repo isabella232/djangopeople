@@ -218,8 +218,7 @@ class DjangoPerson(models.Model):
     # TODO: Put in transaction
     def save(self, force_insert=False, force_update=False, **kwargs):
         # Update country and region counters
-        super(DjangoPerson, self).save(force_insert=False, force_update=False,
-                                       **kwargs)
+        super().save(force_insert=False, force_update=False, **kwargs)
         self.country.num_people = self.country.djangoperson_set.count()
         self.country.save()
         if self.region:
