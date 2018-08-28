@@ -1,4 +1,4 @@
-{% load static staticfiles gravatar %}
+{% load static gravatar %}
 {% for person in people %}
 <li class="vcard">
 	<img src="{% gravatar person.user.email 40 %}" alt="{{ person }}" class="main photo">
