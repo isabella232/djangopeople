@@ -184,7 +184,7 @@ class DjangoPerson(models.Model):
 
         # Sort and annotate people by distance
         for person in people:
-            person.distance_in_miles = int(distance.VincentyDistance(
+            person.distance_in_miles = int(distance.distance(
                 (self.latitude, self.longitude),
                 (person.latitude, person.longitude)
             ).miles)
