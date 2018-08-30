@@ -844,6 +844,11 @@ div#hiddenLogin .openid a:active {
 
 /* @end */
 
+/* @group People VCard */
+.vcard .adr .country-name {
+	height: 1em;
+}
+/* @end */
 
 /* @group Overrides */
 
