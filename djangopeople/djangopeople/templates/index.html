@@ -1,5 +1,5 @@
 {% extends "maps.html" %}
-{% load staticfiles gravatar sekizai_tags %}
+{% load person_list_items staticfiles gravatar sekizai_tags %}
 
 {% block nav_li_class_home %} class="current"{% endblock %}
 
@@ -21,13 +21,7 @@
 {% block content %}
 	<p class="mapnote">{% blocktrans with counter=people_list_limited|length %}Showing {{ counter }} recent signups (out of {{ total_people }}){% endblocktrans %}{% if user.is_anonymous %} - {% url "signup" as signup_url %}{% blocktrans %}if you're a Django developer, why not <a href="{{ signup_url }}">add yourself</a> to the site?{% endblocktrans %}{% endif %}</p>
 	<ul class="detailsList split">
-		{% for person in people_list_limited %}
-			<li>
-				<img src="{% gravatar person.user.email 40 %}" alt="{{ person }}" class="main">
-				<h3><a href="{{ person.get_absolute_url }}">{{ person.user.get_full_name }}</a></h3>
-				<p class="meta"><a href="{% url "country_detail" person.country.iso_code|lower %}" class="nobg"><img src="{% static person.country.flag_url %}" alt="{{ person.country }}" title="{{ person.country }}"></a> {{ person.location_description }}</p>
-			</li>
-		{% endfor %}
+		{% person_list_items people_list_limited %}
 	</ul>
 	<ul class="detailsList split">
 		{% for country in countries %}
