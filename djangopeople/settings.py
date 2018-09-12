@@ -165,6 +165,7 @@ if DEBUG:
 else:
     EMAIL_BACKEND = 'django_ses.SESBackend'
     AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY']
+    AWS_DEFAULT_ACL = 'public-read'
     AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_KEY']
     AWS_STORAGE_BUCKET_NAME = os.environ['AWS_BUCKET_NAME']
     AWS_QUERYSTRING_AUTH = False
