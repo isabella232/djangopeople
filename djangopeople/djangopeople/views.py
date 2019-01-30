@@ -815,7 +815,7 @@ delete_account_done = DeletionDone.as_view()
 def geonames(request):
     params = dict(request.GET)
     params['username'] = settings.GEONAMES_USERNAME
-    response = requests.get('http://ws.geonames.org/findNearbyPlaceNameJSON',
+    response = requests.get('https://api.geonames.org/findNearbyPlaceNameJSON',
                             params=params)
     return HttpResponse(json.dumps(response.json()),
                         content_type='application/json')

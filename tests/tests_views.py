@@ -392,5 +392,5 @@ class DjangoPeopleTest(TestCase):
         url = reverse('geonames')
         self.client.get(url, {'lon': 12, 'lat': 2})
         get.assert_called_with(
-            'http://ws.geonames.org/findNearbyPlaceNameJSON',
+            'https://api.geonames.org/findNearbyPlaceNameJSON',
             params={'lat': ['2'], 'username': 'brutasse', 'lon': ['12']})
