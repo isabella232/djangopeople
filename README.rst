@@ -1,3 +1,5 @@
+**Note**: Django People is archived as of Sept 2020. It remains here in read-only mode for historical interest.
+
 .. image:: https://travis-ci.org/django/djangopeople.png?branch=master
    :alt: Build Status
    :target: https://travis-ci.org/django/djangopeople
